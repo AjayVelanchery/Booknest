@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BookNest-Book Catalog</title>
+</head>
+<body>
+<h1>Book Catalog</h1>
+<table border="1" cellpadding="10">
+<thead>
+
+
+<tr>
+    <th>Title</th><th>Author</th><th>ISBN</th><th>Price</th><th>Stock</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr th:each="book : ${books.content}">
+    <td th:text="${book.title}"></td>
+    <td th:text="${book.author}"></td>
+    <td th:text="${book.isbn}"></td>
+    <td th:text="${book.price}"></td>
+    <td th:text="${book.stock}"></td>
+
+</tr>
+</tbody>
+</table>
+<div>
+    <ul>
+        <li th:each="pageNum : ${#numbers.sequence(0,books.totalPages -1)}">
+            <a th:href="@{/books(page=${pageNum})}" th:text="${pageNum+1}"></a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
