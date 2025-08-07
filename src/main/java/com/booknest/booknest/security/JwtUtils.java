@@ -18,7 +18,7 @@ public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     private final SecretKey secretKey;
-    private final long jwtExpirationMs = 86400000; // 1 day
+    private final long jwtExpirationMs = 86400000;
 
     public JwtUtils(SecretKey secretKey) {
         this.secretKey = secretKey;
