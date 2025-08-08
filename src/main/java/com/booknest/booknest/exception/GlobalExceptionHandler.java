@@ -89,4 +89,5 @@ public class GlobalExceptionHandler {
                 .body(Collections.singletonMap("error", "Something went wrong"));
     }
 
+
 }

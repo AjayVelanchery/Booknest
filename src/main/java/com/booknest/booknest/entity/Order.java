@@ -1,10 +1,9 @@
 package com.booknest.booknest.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,6 +20,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     private String currency;
 
     private BigDecimal totalAmount;
@@ -29,7 +33,6 @@ public class Order {
     private OrderStatus status;
 
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

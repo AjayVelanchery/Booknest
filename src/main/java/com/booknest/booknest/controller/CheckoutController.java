@@ -2,13 +2,16 @@ package com.booknest.booknest.controller;
 
 import com.booknest.booknest.dto.OrderRequest;
 import com.booknest.booknest.dto.OrderResponse;
-import com.booknest.booknest.entity.Order;
 import com.booknest.booknest.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/checkout")
@@ -18,21 +21,12 @@ public class CheckoutController {
     private final OrderService orderService;
 
     @PostMapping("/place")
-    public ResponseEntity<?> placeOrder(HttpSession session, @RequestBody @Valid OrderRequest orderRequest) {
+    public ResponseEntity<?> placeOrder(HttpSession session,
+                                        @RequestBody @Valid OrderRequest orderRequest,
+                                        @AuthenticationPrincipal(expression = "username") String username) {
         try {
-            Order order = orderService.placeOrder(session);
-
-            OrderResponse response = new OrderResponse(
-                    order.getId(),
-                    order.getStatus(),
-                    order.getTotalAmount(),
-                    order.getCurrency(),
-                    order.getCreatedAt(),
-                    "Order placed successfully!"
-            );
-
+            OrderResponse response = orderService.placeOrder(session, username);
             return ResponseEntity.ok(response);
-
         } catch (IllegalStateException e) {
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse(e.getMessage()));
