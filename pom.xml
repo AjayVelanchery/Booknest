@@ -36,6 +36,14 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>20.134.0</version> <!-- Use latest stable version -->
+		</dependency>
+
+
+
+		<dependency>
 			<groupId>com.cloudinary</groupId>
 			<artifactId>cloudinary-http45</artifactId>
 			<version>1.39.0</version>

@@ -1,9 +1,10 @@
 package com.booknest.booknest.entity;
 
 public enum OrderStatus {
-    PENDING_PAYMENT,
+    PENDING,
     PAID,
+    CANCELLED,
     SHIPPED,
     DELIVERED,
-    CANCELLED
+    PENDING_PAYMENT
 }
