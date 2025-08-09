@@ -1,0 +1,70 @@
+src
+├── main
+│   ├── java
+│   │   └── com
+│   │       └── booknest
+│   │           └── booknest
+│   │               ├── BooknestApplication.java
+│   │               ├── config
+│   │               │   ├── CloudinaryConfig.java
+│   │               │   ├── JwtAccessDeniedHandler.java
+│   │               │   ├── JwtKeyConfig.java
+│   │               │   ├── SecurityConfig.java
+│   │               │   └── SwaggerConfig.java
+│   │               ├── controller
+│   │               │   ├── AuthController.java
+│   │               │   ├── BookController.java
+│   │               │   ├── BookViewController.java
+│   │               │   ├── CartController.java
+│   │               │   └── CheckoutController.java
+│   │               ├── dto
+│   │               │   ├── AddToCartRequest.java
+│   │               │   ├── ApiResponse.java
+│   │               │   ├── AuthResponse.java
+│   │               │   ├── BookRequest.java
+│   │               │   ├── CartItem.java
+│   │               │   ├── Cart.java
+│   │               │   ├── ImageUploadForm.java
+│   │               │   ├── LoginRequest.java
+│   │               │   ├── OrderRequest.java
+│   │               │   ├── OrderResponse.java
+│   │               │   ├── RegisterRequest.java
+│   │               │   ├── RemoveFromCartRequest.java
+│   │               │   └── UpdateCartRequest.java
+│   │               ├── entity
+│   │               │   ├── Book.java
+│   │               │   ├── OrderItem.java
+│   │               │   ├── Order.java
+│   │               │   ├── OrderStatus.java
+│   │               │   ├── Role.java
+│   │               │   └── User.java
+│   │               ├── exception
+│   │               │   ├── GlobalExceptionHandler.java
+│   │               │   └── ResourceNotFoundException.java
+│   │               ├── repository
+│   │               │   ├── BookRepository.java
+│   │               │   ├── OrderRepository.java
+│   │               │   └── UserRepository.java
+│   │               ├── security
+│   │               │   ├── CustomUserDetailsService.java
+│   │               │   ├── JwtAuthenticationFilter.java
+│   │               │   └── JwtUtils.java
+│   │               └── service
+│   │                   ├── AuthService.java
+│   │                   ├── BookServiceImpl.java
+│   │                   ├── BookService.java
+│   │                   ├── CartService.java
+│   │                   └── OrderService.java
+│   └── resources
+│       ├── application.properties
+│       ├── static
+│       └── templates
+│           └── books.html
+└── test
+    └── java
+        └── com
+            └── booknest
+                └── booknest
+                    └── BooknestApplicationTests.java
+
+21 directories, 46 files
