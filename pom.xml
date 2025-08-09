@@ -36,9 +36,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.stripe</groupId>
-			<artifactId>stripe-java</artifactId>
-			<version>20.134.0</version> <!-- Use latest stable version -->
+			<groupId>com.razorpay</groupId>
+			<artifactId>razorpay-java</artifactId>
+			<version>1.4.8</version>
 		</dependency>
 
 

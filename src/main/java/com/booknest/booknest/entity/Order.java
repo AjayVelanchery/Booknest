@@ -31,7 +31,7 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-
+    private String stripeSessionId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

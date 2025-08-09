@@ -15,5 +15,6 @@ public class OrderResponse {
     private String currency;
     private LocalDateTime createdAt;
     private String message;
-    private String paymentUrl;
+
+    private String razorpayOrderId;
 }
