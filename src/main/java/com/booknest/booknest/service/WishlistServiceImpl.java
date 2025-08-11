@@ -10,8 +10,10 @@ import com.booknest.booknest.repository.UserRepository;
 import com.booknest.booknest.repository.WishlistRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class WishlistServiceImpl implements WishlistService {
 
     private final WishlistRepository wishlistRepository;
@@ -39,40 +41,67 @@ public class WishlistServiceImpl implements WishlistService {
         User user = getCurrentUser(principalId);
         Wishlist wishlist = wishlistRepository.findByUserId(user.getId())
                 .orElseGet(() -> wishlistRepository.save(Wishlist.builder().user(user).build()));
-        return new WishlistResponse(wishlist.getId(), user.getId(), wishlist.getBooks());
+
+        return new WishlistResponse(
+                wishlist.getId(),
+                user.getId(),
+                wishlist.getBooks()
+        );
     }
 
     @Override
-    public void addBookToWishlist(String principalId, Long bookId) {
+    public WishlistResponse addBookToWishlist(String principalId, Long bookId) {
         User user = getCurrentUser(principalId);
         Wishlist wishlist = wishlistRepository.findByUserId(user.getId())
                 .orElseGet(() -> wishlistRepository.save(Wishlist.builder().user(user).build()));
+
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new ResourceNotFoundException("Book not found"));
+
         if (!wishlist.getBooks().contains(book)) {
             wishlist.getBooks().add(book);
             wishlistRepository.save(wishlist);
         }
+        return new WishlistResponse(
+                wishlist.getId(),
+                user.getId(),
+                wishlist.getBooks()
+        );
     }
 
     @Override
-    public void removeBookFromWishlist(String principalId, Long bookId) {
+    public WishlistResponse removeBookFromWishlist(String principalId, Long bookId) {
         User user = getCurrentUser(principalId);
         Wishlist wishlist = wishlistRepository.findByUserId(user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Wishlist not found"));
+
         wishlist.getBooks().removeIf(book -> book.getId().equals(bookId));
         wishlistRepository.save(wishlist);
+
+        return new WishlistResponse(
+                wishlist.getId(),
+                user.getId(),
+                wishlist.getBooks()
+        );
     }
 
     @Override
-    public void moveWishlistToCart(String principalId, HttpSession session) {
+    public WishlistResponse moveWishlistToCart(String principalId, HttpSession session) {
         User user = getCurrentUser(principalId);
         Wishlist wishlist = wishlistRepository.findByUserId(user.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Wishlist not found"));
+
         for (Book book : wishlist.getBooks()) {
             cartService.addItem(session, book, 1);
         }
 
+
         wishlistRepository.save(wishlist);
+
+        return new WishlistResponse(
+                wishlist.getId(),
+                user.getId(),
+                wishlist.getBooks()
+        );
     }
 }

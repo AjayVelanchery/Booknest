@@ -1,6 +1,5 @@
 package com.booknest.booknest.controller;
 
-import com.booknest.booknest.dto.ApiResponse;
 import com.booknest.booknest.dto.WishlistResponse;
 import com.booknest.booknest.service.WishlistService;
 import jakarta.servlet.http.HttpSession;
@@ -20,27 +19,28 @@ public class WishlistController {
 
     @GetMapping
     public ResponseEntity<WishlistResponse> getMyWishlist(Authentication authentication) {
-        return ResponseEntity.ok(wishlistService.getMyWishlist(authentication.getName()));
+        WishlistResponse response = wishlistService.getMyWishlist(authentication.getName());
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/{bookId}")
-    public ResponseEntity<ApiResponse> addBookToWishlist(@PathVariable Long bookId,
-                                                         Authentication authentication) {
-        wishlistService.addBookToWishlist(authentication.getName(), bookId);
-        return ResponseEntity.ok(new ApiResponse(true,"Book added to wishlist"));
+    public ResponseEntity<WishlistResponse> addBookToWishlist(@PathVariable Long bookId,
+                                                              Authentication authentication) {
+        WishlistResponse response = wishlistService.addBookToWishlist(authentication.getName(), bookId);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{bookId}")
-    public ResponseEntity<ApiResponse> removeBookFromWishlist(@PathVariable Long bookId,
-                                                              Authentication authentication) {
-        wishlistService.removeBookFromWishlist(authentication.getName(), bookId);
-        return ResponseEntity.ok(new ApiResponse(true,"Book removed from wishlist"));
+    public ResponseEntity<WishlistResponse> removeBookFromWishlist(@PathVariable Long bookId,
+                                                                   Authentication authentication) {
+        WishlistResponse response = wishlistService.removeBookFromWishlist(authentication.getName(), bookId);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/order")
-    public ResponseEntity<ApiResponse> orderFromWishlist(Authentication authentication,
-                                                         HttpSession session) {
-        wishlistService.moveWishlistToCart(authentication.getName(), session);
-        return ResponseEntity.ok(new ApiResponse(true,"Wishlist items moved to cart. Proceed to checkout."));
+    public ResponseEntity<WishlistResponse> orderFromWishlist(Authentication authentication,
+                                                              HttpSession session) {
+        WishlistResponse response = wishlistService.moveWishlistToCart(authentication.getName(), session);
+        return ResponseEntity.ok(response);
     }
 }
