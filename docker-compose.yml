@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # The service for your Spring Boot application
+  app:
+    build: .
+    container_name: booknest-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      # Database configuration, using the service name 'postgres'
+      # as the hostname instead of 'localhost'
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/booknestdb
+      SPRING_DATASOURCE_USERNAME: booknest_user
+      SPRING_DATASOURCE_PASSWORD: booknest_pass
+
+      # Your other environment variables for Cloudinary and Razorpay
+      # It's a good practice to pass these as environment variables
+      CLOUDINARY_URL: ${CLOUDINARY_URL}
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+
+  # The service for the PostgreSQL database
+  postgres:
+    image: postgres:15-alpine
+    container_name: booknest-db
+    environment:
+      POSTGRES_DB: booknestdb
+      POSTGRES_USER: booknest_user
+      POSTGRES_PASSWORD: booknest_pass
+    ports:
+      - "5433:5432" # Optional: to access the database from your host machine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
