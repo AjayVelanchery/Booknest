@@ -65,7 +65,7 @@ public class OrderService {
                     ));
 
             if (book.getStock() < cartItem.getQuantity()) {
-                throw new IllegalStateException("Not enough stock for book: " + book.getTitle());
+                throw new IllegalStateException("Not enough stock for the book: " + book.getTitle());
             }
 
             book.setStock(book.getStock() - cartItem.getQuantity());
